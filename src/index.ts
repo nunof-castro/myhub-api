@@ -1,5 +1,6 @@
 import express from "express";
 import { AppDataSource } from "./data-source";
+import categoriesRoutes from "./routes/categories.routes";
 
 AppDataSource.initialize()
   .then(async () => {
@@ -8,9 +9,8 @@ AppDataSource.initialize()
     const app = express();
     app.use(express.json());
 
-    app.get("/", (req, res) => {
-      return res.json(`MY HUB API`);
-    });
+    //routing middlewares
+    app.use("/categories", categoriesRoutes);
 
     return app.listen(serverPort, () =>
       console.log(`Server running on port ${serverPort}`)
