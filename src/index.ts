@@ -4,6 +4,7 @@ import categoriesRoutes from "./routes/categories.routes";
 
 AppDataSource.initialize()
   .then(async () => {
+    
     const serverPort = process.env.SERVER_PORT;
 
     const app = express();

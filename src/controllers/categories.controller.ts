@@ -60,26 +60,27 @@ export const deleteCategory = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
+    //Find the category to be deleted
     const categoryToDelete = await categoryRepository.findOneByOrFail({
       id: Number(id),
     });
 
-    const { name } = categoryToDelete;
+    //Find subcategories associated to the category
+    const relatedSubcategories = await subCategoryRepository.find({
+      where: { category: categoryToDelete },
+    });
 
-    // delete all subcategories associated with the category
-    await subCategoryRepository
-      .createQueryBuilder()
-      .delete()
-      .from(SubCategory)
-      .where("category_id = :id", { id: Number(id) })
-      .execute();
+    //Delete all subcategories
+    await subCategoryRepository.remove(relatedSubcategories);
 
-    // delete the category
+    //Delete the category
     await categoryRepository.remove(categoryToDelete);
 
+    const { name } = categoryToDelete;
+    
     return res
       .status(200)
-      .json({ message: `Category ${name} deleted successfully` });
+      .json({ message: `Category ${name} successfully deleted!` });
   } catch (error) {
     return res
       .status(404)
