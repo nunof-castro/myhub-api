@@ -7,13 +7,16 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "enum", enum: ["debit", "credit"], nullable: false })
-  type: string;
-
   @Column()
   name: string;
 
-  @Column("double", { scale: 2 })
+  @Column({ unique: true })
+  email: string;
+
+  @Column()
+  password: string;
+
+  @Column("double", { scale: 2, default: 0 })
   balance: number;
 
   @OneToMany(() => Transaction, (transaction) => transaction.user)
