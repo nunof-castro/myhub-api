@@ -7,7 +7,7 @@ import { User } from "../entities/User";
 
 const userRepository = AppDataSource.getRepository(User);
 
-export const createUser = async (req: Request, res: Response) => {
+export const signUp = async (req: Request, res: Response) => {
   const { email, name, password } = req.body;
 
   const userExists = await userRepository.findOneBy({ email });

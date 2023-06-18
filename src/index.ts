@@ -1,9 +1,8 @@
 import express from "express";
 import { AppDataSource } from "./data-source";
 
-import authRoutes from "./routes/auth.routes";
-import categoriesRoutes from "./routes/categories.routes";
-import usersRoutes from "./routes/users.routes";
+import authRoutes from "./routes/authRoutes";
+import categoriesRoutes from "./routes/categoriesRoutes";
 
 AppDataSource.initialize()
   .then(async () => {
@@ -14,7 +13,6 @@ AppDataSource.initialize()
 
     //routing middlewares
     app.use("/categories", categoriesRoutes);
-    app.use("/users", usersRoutes);
     app.use("/", authRoutes);
 
     return app.listen(serverPort, () =>

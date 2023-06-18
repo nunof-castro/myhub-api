@@ -4,13 +4,13 @@ import {
   createCategory,
   deleteCategory,
   getCategories,
-} from "../controllers/categories.controller";
+} from "../controllers/categoriesController";
 
 import {
   createSubcategory,
-  getSubcategorieByCategoryId,
   deleteSubcategory,
-} from "../controllers/subcategories.controller";
+  getSubcategorieByCategoryId,
+} from "../controllers/subcategoriesController";
 
 const router = Router();
 
