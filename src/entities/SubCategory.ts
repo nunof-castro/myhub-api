@@ -17,7 +17,9 @@ export class SubCategory {
   @Column({ nullable: false })
   name: string;
 
-  @ManyToOne(() => Category, (category) => category.subcategories)
+  @ManyToOne(() => Category, (category) => category.subcategories, {
+    onDelete: "CASCADE",
+  })
   @JoinColumn({ name: "category_id" })
   category: Category;
 

@@ -3,6 +3,8 @@ import { AppDataSource } from "./data-source";
 
 import authRoutes from "./routes/authRoutes";
 import categoriesRoutes from "./routes/categoriesRoutes";
+import transactionsRoutes from "./routes/transactionsRoutes";
+import usersRoutes from "./routes/usersRoutes";
 
 AppDataSource.initialize()
   .then(async () => {
@@ -12,8 +14,10 @@ AppDataSource.initialize()
     app.use(express.json());
 
     //routing middlewares
-    app.use("/categories", categoriesRoutes);
     app.use("/", authRoutes);
+    app.use("/categories", categoriesRoutes);
+    app.use("/users", usersRoutes);
+    app.use("/transactions", transactionsRoutes);
 
     return app.listen(serverPort, () =>
       console.log(`Server running on port ${serverPort}`)

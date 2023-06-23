@@ -17,12 +17,10 @@ export const createSubcategory = async (req: Request, res: Response) => {
   });
 
   if (!category) {
-    //if there is no category return an error
     return res
       .status(404)
       .json({ message: `There is no category with id ${id}` });
   } else {
-    //check if the name was passed on body
     if (!name) {
       return res.status(400).json({ message: "Name is required" });
     }
@@ -38,7 +36,6 @@ export const createSubcategory = async (req: Request, res: Response) => {
       //create the subcategory
       const newSubcategory = new SubCategory();
       newSubcategory.name = name;
-      if (category) newSubcategory.category = category;
 
       try {
         await subcategoryRepository.save(newSubcategory);
@@ -75,6 +72,7 @@ export const getSubcategorieByCategoryId = async (
 
     const subcategories = await subcategoryRepository.find({
       where: { category },
+      relations: ["category"],
     });
 
     return res.status(200).json(subcategories);
